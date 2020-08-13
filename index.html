@@ -1,3 +1,4 @@
+
 <html>
 <head>
   <title>Calculator</title>
@@ -6,6 +7,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <style type="text/css">
@@ -16,6 +18,30 @@
 </style>
 
 <body>
+
+        <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Watch the video for instructions</h4>
+        </div>
+        <div class="modal-body">
+          <p>
+          <div class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item" width="560" height="315" src="https://www.youtube.com/embed/YAliBOOEnVc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
 	<div class="container">
 	<h1>Scientific Calculator</h1>
 	<br><input class="col-xs-8" type="text" size="40" disabled id="input">
@@ -24,8 +50,9 @@
 	<button type="button" class="btn btn-danger" id="back"><---</button>
 	<button type="button" class="btn btn-danger" id="cancel">C</button>
 	<button type="button" class="btn btn-danger" id="signchange">+/-</button>
+        <button type="button" class="btn btn-warning" type="button"  data-toggle="modal" data-target="#myModal"><i class="fa fa-question-circle"></i></button>
 	 
-    
+            
 
      <br><br>
 	 <button type="button" class="btn" id="sinh">sinh</button>
@@ -294,12 +321,12 @@
 		str=num.toString();	
 	} 
 	document.getElementById("x2").onclick=function(){
-		var num=Math.pow(2,document.getElementById("input").value);
+		var num=Math.pow(document.getElementById("input").value,2);
 		document.getElementById("input").value=num;
 		str=num.toString();	
 	} 
 	document.getElementById("x3").onclick=function(){
-		var num=Math.pow(3,document.getElementById("input").value);
+		var num=Math.pow(document.getElementById("input").value,3);
 		document.getElementById("input").value=num;
 		str=num.toString();	
 	} 
