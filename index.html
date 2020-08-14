@@ -50,17 +50,27 @@
 	<button type="button" class="btn btn-danger" id="back"><---</button>
 	<button type="button" class="btn btn-danger" id="cancel">C</button>
 	<button type="button" class="btn btn-danger" id="signchange">+/-</button>
-        <button type="button" class="btn btn-warning" type="button"  data-toggle="modal" data-target="#myModal"><i class="fa fa-question-circle"></i></button>
-	 
-            
+	 <button type="button" class="btn" id="open">(</button>
+     <button type="button" class="btn" id="close">)</button> 
+     <button type="button" class="btn" id="fact">n!</button>
+     <button type="button" class="btn" id="abs">abs x</button>
+     <button type="button" class="btn" id="rndx">round</button>
+     <label class="radio-inline">
+      <input type="radio" name="optradio" id="deg" checked>Deg
+    </label>
+    <label class="radio-inline">
+      <input type="radio" name="optradio" id="rad">Rad
+    </label>
+    <button type="button" class="btn btn-warning" type="button"  data-toggle="modal" data-target="#myModal"><i class="fa fa-question-circle"></i></button>
 
      <br><br>
+
 	 <button type="button" class="btn" id="sinh">sinh</button>
 	 <button type="button" class="btn" id="cosh">cosh</button>
 	 <button type="button" class="btn" id="tanh">tanh</button>
 	 <button type="button" class="btn" id="xpowy">x<sup>y</sup></button>
-	 <button type="button" class="btn" id="open">(</button>
-     <button type="button" class="btn" id="close">)</button> 
+	 <button type="button" class="btn" id="pi">pi</button>
+	 <button type="button" class="btn" id="exp">e</button>
      <button type="button" class="btn" id="seven">7</button>
 	 <button type="button" class="btn" id="eight">8</button>
 	 <button type="button" class="btn" id="nine">9</button>
@@ -87,7 +97,7 @@
 	 <button type="button" class="btn" id="tan">tan</button>
 	 <button type="button" class="btn" id="x2">x<sup>2</sup></button>
 	 <button type="button" class="btn" id="x3">x<sup>3</sup></button>
-	 <button type="button" class="btn" id="abs">abs x</button>
+	 <button type="button" class="btn" id="tenpow">10<sup>x</sup></button>
 	 <button type="button" class="btn" id="one">1</button>
 	 <button type="button" class="btn" id="two">2</button>
 	 <button type="button" class="btn" id="three">3</button>
@@ -95,17 +105,18 @@
 	 <button type="button" class="btn" id="add">+</button>
 
 	 <br><br>
-	 <button type="button" class="btn" id="pi">pi</button>
-	 <button type="button" class="btn" id="exp">e</button>
-	 <button type="button" class="btn" id="fact">n!</sup></button>
+
+	 <button type="button" class="btn" id="asin">sin<sup>-1</sup></button>
+	 <button type="button" class="btn" id="acos">cos<sup>-1</sup></button>
+	 <button type="button" class="btn" id="atan">tan<sup>-1</sup></button>
 	 <button type="button" class="btn" id="logxy">log<sub>y</sub>x</button> 
 	 <button type="button" class="btn" id="epow">e<sup>x</sup></button> 
-	 <button type="button" class="btn" id="tenpow">10<sup>x</sup></button> 
+	 <button type="button" class="btn" id="xrty"><sup>x</sup>√y</button>
 	 <button type="button" class="btn" id="sqrt">√</button> 
 	 <button type="button" class="btn" id="cubrt"><sup>3</sup>√</button>
 	 <button type="button" class="btn" id="zero">0</button>
 	 <button type="button" class="btn" id="point">.</button>
-	 <button type="button" class="btn btn-success btn-lg" style="max-width: 120px;" id="equals">=</button>
+	 <button type="button" class="btn btn-success" style="max-width: 120px;" id="equals">=</button>
 	 
 	 </div>
 </div>
@@ -193,6 +204,10 @@
 		str+="log";
 		document.getElementById("input").value=str;
 	}
+	document.getElementById("xrty").onclick=function(){
+		str+="xrty";
+		document.getElementById("input").value=str;
+	}
 	document.getElementById("equals").onclick=function(){
 		if(str.search("log")!=-1){
 			var temp,arr;
@@ -208,6 +223,13 @@
 			str=Math.pow( Number(arr[0]) , Number(arr[1]) ).toString();
 			document.getElementById("input").value=str;
 		}
+		else if(str.search("xrty")!=-1){
+			var temp,arr;
+			temp=str.replace("xrty",",");
+			arr=temp.split(",");
+			str=Math.pow(arr[1], 1/arr[0]);
+			document.getElementById("input").value=str;
+		}
 		else{
 			document.getElementById("input").value=eval(str);
 			str=document.getElementById("input").value;
@@ -221,6 +243,11 @@
 		var num=document.getElementById("input").value;
 		document.getElementById("input").value=1/num;
 		str=(1/num).toString();
+	}
+	document.getElementById("rndx").onclick=function(){
+		var num=Math.round(document.getElementById("input").value);
+		document.getElementById("input").value=num;
+		str=num.toString();
 	}
 	document.getElementById("epow").onclick=function(){
 		var num=document.getElementById("input").value;
@@ -261,19 +288,79 @@
 		str=fact.toString();
 	}
 	document.getElementById("sin").onclick=function(){
-		var num=Math.sin(document.getElementById("input").value);
-		document.getElementById("input").value=num;
-		str=num.toString();	
+		var num;
+		if(document.getElementById("rad").checked==true){
+			num=Math.sin(document.getElementById("input").value);
+			document.getElementById("input").value=num;
+			str=num.toString();	
+		}
+		if(document.getElementById("deg").checked==true){
+			num=Math.sin((document.getElementById("input").value)*(Math.PI/180));
+			document.getElementById("input").value=num;
+			str=num.toString();	
+		}
 	}
 	document.getElementById("cos").onclick=function(){
-		var num=Math.cos(document.getElementById("input").value);
-		document.getElementById("input").value=num;
-		str=num.toString();	
+		var num;
+		if(document.getElementById("rad").checked==true){
+			num=Math.cos(document.getElementById("input").value);
+			document.getElementById("input").value=num;
+			str=num.toString();	
+		}
+		if(document.getElementById("deg").checked==true){
+			num=Math.cos((document.getElementById("input").value)*(Math.PI/180));
+			document.getElementById("input").value=num;
+			str=num.toString();	
+		}
 	}
 	document.getElementById("tan").onclick=function(){
-		var num=Math.tan(document.getElementById("input").value);
-		document.getElementById("input").value=num;
-		str=num.toString();	
+		var num;
+		if(document.getElementById("rad").checked==true){
+			num=Math.tan(document.getElementById("input").value);
+			document.getElementById("input").value=num;
+			str=num.toString();	
+		}
+		if(document.getElementById("deg").checked==true){
+			num=Math.tan((document.getElementById("input").value)*(Math.PI/180));
+			document.getElementById("input").value=num;
+			str=num.toString();	
+		}
+	}
+	document.getElementById("asin").onclick=function(){
+		var num=Math.asin(document.getElementById("input").value);
+		if(document.getElementById("rad").checked==true){
+			document.getElementById("input").value=num;
+			str=num.toString();	
+		}
+		if(document.getElementById("deg").checked==true){
+			num*=180/Math.PI;
+			document.getElementById("input").value=num;
+			str=num.toString();	
+		}
+	}
+	document.getElementById("acos").onclick=function(){
+		var num=Math.acos(document.getElementById("input").value);
+		if(document.getElementById("rad").checked==true){
+			document.getElementById("input").value=num;
+			str=num.toString();	
+		}
+		if(document.getElementById("deg").checked==true){
+			num*=180/Math.PI;
+			document.getElementById("input").value=num;
+			str=num.toString();	
+		}
+	}
+	document.getElementById("atan").onclick=function(){
+		var num=Math.atan(document.getElementById("input").value);
+		if(document.getElementById("rad").checked==true){
+			document.getElementById("input").value=num;
+			str=num.toString();	
+		}
+		if(document.getElementById("deg").checked==true){
+			num*=180/Math.PI;
+			document.getElementById("input").value=num;
+			str=num.toString();	
+		}
 	}
 	document.getElementById("sinh").onclick=function(){
 		var num=Math.sinh(document.getElementById("input").value);
